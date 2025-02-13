@@ -12,6 +12,6 @@ angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule"])
             controller: "CatalogController"
         })
         .otherwise({
-            redirectTo: "/login"
+            redirectTo: "/catalog"
         });
 });

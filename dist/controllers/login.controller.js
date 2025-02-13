@@ -6,6 +6,10 @@ var AuthController = /** @class */ (function () {
             username: "",
             password: ""
         };
+        if (this.authService.isUserLoggedIn()) {
+            alert("Already logged in!");
+            this.$location.path("/catalog");
+        }
     } // Removed unused $scope
     AuthController.prototype.login = function () {
         this.authService.loginUser(this.user.username, this.user.password);

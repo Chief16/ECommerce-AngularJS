@@ -9,7 +9,12 @@ export class AuthController {
         password: ""
     };
 
-    constructor(private $location: angular.ILocationService, private authService: AuthService) {} // Removed unused $scope
+    constructor(private $location: angular.ILocationService, private authService: AuthService) {
+        if(this.authService.isUserLoggedIn()) {
+            alert("Already logged in!");
+            this.$location.path("/catalog");
+        }
+    } // Removed unused $scope
 
     login() {
         this.authService.loginUser(this.user.username, this.user.password);

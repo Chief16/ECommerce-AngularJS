@@ -1,4 +1,3 @@
-
 angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule"])
     .config(function ($routeProvider) {
     $routeProvider
@@ -11,6 +10,6 @@ angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule"])
         controller: "CatalogController"
     })
         .otherwise({
-        redirectTo: "/login"
+        redirectTo: "/catalog"
     });
 });
