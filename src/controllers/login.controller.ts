@@ -13,5 +13,7 @@ export class AuthController {
 
     login() {
         this.authService.loginUser(this.user.username, this.user.password);
+        alert("Logged in!");
+        this.$location.path("/catalog");
     }
 }

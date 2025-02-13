@@ -1,0 +1,16 @@
+<div ng-controller="CatalogController as catCtrl">
+    <h3 class="text-center">Catalogs</h3>
+    <div class=" w-100 d-flex gap-3 flex-wrap justify-content-center">
+        <div ng-repeat="catalog in catCtrl.catalogs" class="w-25">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ catalog.name }}</h5>
+                    <p class="card-text">{{ catalog.description }}</p>
+                    <p class="card-text">Available Stock : {{ catalog.quantityAvl }}</p>
+                    <p class="card-text">Price : {{ catalog.price | currency:'INR ' : 2 }}</p>
+                    <button class="btn btn-primary" ng-click="ctrl.addToCart(catalog)">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,8 @@ var AuthController = /** @class */ (function () {
     } // Removed unused $scope
     AuthController.prototype.login = function () {
         this.authService.loginUser(this.user.username, this.user.password);
+        alert("Logged in!");
+        this.$location.path("/catalog");
     };
     AuthController.$inject = ["$location", "AuthService"]; // Fix service name (match registered name)
     return AuthController;
