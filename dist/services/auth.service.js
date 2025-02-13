@@ -12,4 +12,3 @@ var AuthService = /** @class */ (function () {
     };
     return AuthService;
 }());
-export { AuthService };

@@ -1,19 +1,17 @@
-import * as ng from "angular";
+import * as angular from "angular";
 import { AuthService } from "../services/auth.service";
 
 export class AuthController {
-    static $inject = ["$scope", "$location"];
+    static $inject = ["$location", "AuthService"]; // Fix service name (match registered name)
 
     user = {
         username: "",
         password: ""
-    }
+    };
 
-    constructor(private $scope: ng.IScope, private authService: AuthService) {
-    }
+    constructor(private $location: angular.ILocationService, private authService: AuthService) {} // Removed unused $scope
 
-    login(){
+    login() {
         this.authService.loginUser(this.user.username, this.user.password);
-        // $location.path("/home");
     }
 }

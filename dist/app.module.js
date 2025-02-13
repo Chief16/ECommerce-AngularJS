@@ -1,4 +1,3 @@
-import * as angular from "angular";
 angular.module("eCommerce", ['ngRoute', "authModule"])
     .config(function ($routeProvider) {
     $routeProvider

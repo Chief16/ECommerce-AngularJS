@@ -1,17 +1,15 @@
 var AuthController = /** @class */ (function () {
-    function AuthController($scope, authService) {
-        this.$scope = $scope;
+    function AuthController($location, authService) {
+        this.$location = $location;
         this.authService = authService;
         this.user = {
             username: "",
             password: ""
         };
-    }
+    } // Removed unused $scope
     AuthController.prototype.login = function () {
         this.authService.loginUser(this.user.username, this.user.password);
-        // $location.path("/home");
     };
-    AuthController.$inject = ["$scope", "$location"];
+    AuthController.$inject = ["$location", "AuthService"]; // Fix service name (match registered name)
     return AuthController;
 }());
-export { AuthController };
