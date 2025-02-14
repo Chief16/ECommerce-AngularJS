@@ -4,7 +4,11 @@ var AuthService = /** @class */ (function () {
         this.authUrl = 'http://localhost:3000/login';
     }
     AuthService.prototype.loginUser = function (username, password) {
-        return this.$http.post(this.authUrl, { username: username, password: password });
+        if (username === 'test@gmail.com' && password === 'admin') {
+            this.setAuthenticated();
+            return true;
+        }
+        return false;
     };
     AuthService.prototype.setAuthenticated = function () {
         sessionStorage.setItem('authenticated', "true");

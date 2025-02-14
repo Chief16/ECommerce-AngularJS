@@ -116,49 +116,7 @@ var CatalogService = /** @class */ (function () {
         return this.catalogsInCart;
     };
     CatalogService.prototype.getItemsCountFromCart = function () {
-        return this.catalogsInCart.length;
+        return this.catalogsInCart.reduce(function (acc, item) { return acc + item.quantity; }, 0);
     };
     return CatalogService;
 }());
-// import { Catalog } from "../interfaces/catalog";
-// import * as ng from "angular";
-// export class CatalogService {
-//   private $inject = ["$http"];
-//   private authUrl = "http://localhost:3000/";
-//   catalogs: Catalog[] = [];
-//   catalogsInCart: CatalogInCart[] = [];
-//   constructor(private $http: ng.IHttpService) {}
-//   getCatalogs(): Promise<Catalog[]> {
-//     return this.$http.get<Catalog[]>(this.authUrl + "products")
-//       .then((response) => {
-//         return response.data;
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching catalogs:", error);
-//         return [];
-//       });
-//   }
-//   addToCart(catalog: any): Promise<CatalogInCart[]> {
-//     return this.$http.post(this.authUrl + "cart", catalog).then((response) => {
-//       this.catalogsInCart = JSON.parse(JSON.stringify(response.data));
-//       return this.catalogsInCart;
-//     }).catch((error) => {
-//       console.log(error);
-//       return [];
-//     });
-//   }
-//   getItemsFromCart(): Promise<CatalogInCart[]> {
-//     return this.$http.get<CatalogInCart[]>(this.authUrl + "cart")
-//       .then((response) => {
-//         this.catalogsInCart = JSON.parse(JSON.stringify(response.data));
-//         return this.catalogsInCart;
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//         return [];
-//       });
-//   }
-//   getItemsCountFromCart() {
-//     return this.catalogsInCart.length || 0;
-//   }
-// }

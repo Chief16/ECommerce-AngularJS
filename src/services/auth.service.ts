@@ -9,8 +9,12 @@ export class AuthService {
 
   }
 
-  loginUser(username: string, password: string): ng.IHttpPromise<any> {
-    return this.$http.post(this.authUrl, { username, password });
+  loginUser(username: string, password: string) {
+    if(username === 'test@gmail.com' && password === 'admin') {
+      this.setAuthenticated();
+      return true;
+    }
+    return false;
   }
 
   setAuthenticated() {
@@ -25,3 +29,8 @@ export class AuthService {
     return sessionStorage.getItem('authenticated') === "true";
   }
 }
+
+
+// loginUser(username: string, password: string): ng.IHttpPromise<any> {
+//   return this.$http.post(this.authUrl, { username, password });
+// }

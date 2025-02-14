@@ -135,7 +135,7 @@ export class CatalogService {
   }
 
   getItemsCountFromCart() {
-    return this.catalogsInCart.length;
+    return this.catalogsInCart.reduce((acc, item) => acc + item.quantity, 0);
   }
 }
 
