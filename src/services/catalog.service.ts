@@ -139,7 +139,7 @@ export class CatalogService {
         price: 100,
       });
     }
-    localStorage.setItem(
+    sessionStorage.setItem(
       "catalogsInCart",
       JSON.parse(JSON.stringify(this.catalogsInCart))
     );

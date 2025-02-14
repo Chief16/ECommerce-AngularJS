@@ -110,7 +110,7 @@ var CatalogService = /** @class */ (function () {
                 price: 100,
             });
         }
-        localStorage.setItem("catalogsInCart", JSON.parse(JSON.stringify(this.catalogsInCart)));
+        sessionStorage.setItem("catalogsInCart", JSON.parse(JSON.stringify(this.catalogsInCart)));
     };
     CatalogService.prototype.getItemsFromCart = function () {
         return this.catalogsInCart;

@@ -17,8 +17,14 @@ export class AuthController {
     } // Removed unused $scope
 
     login() {
-        this.authService.loginUser(this.user.username, this.user.password);
-        alert("Logged in!");
-        this.$location.path("/catalog");
+        this.authService.loginUser(this.user.username, this.user.password)
+        .then((res) => {
+            this.authService.setAuthenticated();
+            this.$location.path("/catalog");
+        })
+        .catch((e) => {
+            console.error(e);
+            alert("Login failed!");
+        });
     }
 }

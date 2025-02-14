@@ -1,17 +1,27 @@
+import * as ng from 'angular';
+
 export class AuthService {
-  constructor(){
+  static $inject = ['$http'];
+
+  authUrl = 'http://localhost:3000/login';
+
+  constructor(private $http: ng.IHttpService){
 
   }
 
-  loginUser(username: string, password: string) {
-    localStorage.setItem('authenticated', "true");
+  loginUser(username: string, password: string): ng.IHttpPromise<any> {
+    return this.$http.post(this.authUrl, { username, password });
+  }
+
+  setAuthenticated() {
+    sessionStorage.setItem('authenticated', "true");
   }
 
   logoutUser() {
-    localStorage.removeItem('authenticated');
+    sessionStorage.removeItem('authenticated');
   }
 
   isUserLoggedIn() {
-    return localStorage.getItem('authenticated') === "true";
+    return sessionStorage.getItem('authenticated') === "true";
   }
 }

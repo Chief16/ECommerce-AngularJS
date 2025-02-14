@@ -2,13 +2,13 @@ var AuthService = /** @class */ (function () {
     function AuthService() {
     }
     AuthService.prototype.loginUser = function (username, password) {
-        localStorage.setItem('authenticated', "true");
+        sessionStorage.setItem('authenticated', "true");
     };
     AuthService.prototype.logoutUser = function () {
-        localStorage.removeItem('authenticated');
+        sessionStorage.removeItem('authenticated');
     };
     AuthService.prototype.isUserLoggedIn = function () {
-        return localStorage.getItem('authenticated') === "true";
+        return sessionStorage.getItem('authenticated') === "true";
     };
     return AuthService;
 }());
