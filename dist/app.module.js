@@ -1,3 +1,4 @@
+
 angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule"])
     .config(function ($routeProvider) {
     $routeProvider

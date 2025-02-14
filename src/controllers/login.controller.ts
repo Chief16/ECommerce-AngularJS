@@ -11,7 +11,7 @@ export class AuthController {
 
     constructor(private $location: angular.ILocationService, private authService: AuthService) {
         if(this.authService.isUserLoggedIn()) {
-            alert("Already logged in!");
+            // alert("Already logged in!");
             this.$location.path("/catalog");
         }
     } // Removed unused $scope

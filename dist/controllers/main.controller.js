@@ -1,9 +1,10 @@
 var MainController = /** @class */ (function () {
-    function MainController($location, authService) {
+    function MainController($location, authService, catalogService) {
         this.$location = $location;
         this.authService = authService;
+        this.catalogService = catalogService;
         if (this.authService.isUserLoggedIn()) {
-            alert("Already logged in!");
+            // alert("Already logged in!");
             this.$location.path("/catalog");
         }
     } // Removed unused $scope
@@ -18,6 +19,9 @@ var MainController = /** @class */ (function () {
         this.authService.logoutUser();
         this.$location.path("/login");
     };
-    MainController.$inject = ["$location", "AuthService"]; // Fix service name (match registered name)
+    MainController.prototype.cartItemsCount = function () {
+        return this.catalogService.getItemsCountFromCart() || 0;
+    };
+    MainController.$inject = ["$location", "AuthService", "CatalogService"]; // Fix service name (match registered name)
     return MainController;
 }());

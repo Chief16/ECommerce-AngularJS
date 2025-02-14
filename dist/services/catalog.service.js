@@ -8,7 +8,8 @@ var CatalogService = /** @class */ (function () {
                 price: 1299,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
                 description: "High-performance gaming laptop with RGB keyboard.",
-                quantityAvl: 10
+                quantityAvl: 10,
+                inCart: 0
             },
             {
                 id: 2,
@@ -17,7 +18,8 @@ var CatalogService = /** @class */ (function () {
                 price: 999,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
                 description: "Sleek and lightweight ultrabook for professionals.",
-                quantityAvl: 15
+                quantityAvl: 15,
+                inCart: 0
             },
             {
                 id: 3,
@@ -26,7 +28,8 @@ var CatalogService = /** @class */ (function () {
                 price: 1099,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
                 description: "Reliable business laptop with long battery life.",
-                quantityAvl: 8
+                quantityAvl: 8,
+                inCart: 0
             },
             {
                 id: 4,
@@ -35,7 +38,8 @@ var CatalogService = /** @class */ (function () {
                 price: 899,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
                 description: "Versatile 2-in-1 laptop with a touchscreen display.",
-                quantityAvl: 12
+                quantityAvl: 12,
+                inCart: 0
             },
             {
                 id: 5,
@@ -44,7 +48,8 @@ var CatalogService = /** @class */ (function () {
                 price: 1999,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/07/17/22/43/student-849825_1280.jpg",
                 description: "Powerful MacBook Pro with M-series chip.",
-                quantityAvl: 5
+                quantityAvl: 5,
+                inCart: 0
             },
             {
                 id: 6,
@@ -53,7 +58,8 @@ var CatalogService = /** @class */ (function () {
                 price: 499,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
                 description: "Affordable and fast Chromebook for students.",
-                quantityAvl: 20
+                quantityAvl: 20,
+                inCart: 0
             },
             {
                 id: 7,
@@ -62,7 +68,8 @@ var CatalogService = /** @class */ (function () {
                 price: 2499,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
                 description: "High-end workstation laptop for professionals.",
-                quantityAvl: 6
+                quantityAvl: 6,
+                inCart: 0
             },
             {
                 id: 8,
@@ -71,7 +78,8 @@ var CatalogService = /** @class */ (function () {
                 price: 599,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
                 description: "Affordable laptop with decent performance.",
-                quantityAvl: 18
+                quantityAvl: 18,
+                inCart: 0
             },
             {
                 id: 9,
@@ -80,8 +88,9 @@ var CatalogService = /** @class */ (function () {
                 price: 750,
                 imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
                 description: "Perfect laptop for students and daily use.",
-                quantityAvl: 25
-            }
+                quantityAvl: 25,
+                inCart: 0
+            },
         ];
         this.catalogsInCart = [];
     }
@@ -101,6 +110,13 @@ var CatalogService = /** @class */ (function () {
                 price: 100,
             });
         }
+        localStorage.setItem("catalogsInCart", JSON.parse(JSON.stringify(this.catalogsInCart)));
+    };
+    CatalogService.prototype.getItemsFromCart = function () {
+        return this.catalogsInCart;
+    };
+    CatalogService.prototype.getItemsCountFromCart = function () {
+        return this.catalogsInCart.length;
     };
     return CatalogService;
 }());

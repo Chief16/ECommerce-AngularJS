@@ -7,7 +7,7 @@ var AuthController = /** @class */ (function () {
             password: ""
         };
         if (this.authService.isUserLoggedIn()) {
-            alert("Already logged in!");
+            // alert("Already logged in!");
             this.$location.path("/catalog");
         }
     } // Removed unused $scope
