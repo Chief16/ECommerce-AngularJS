@@ -1,60 +1,124 @@
 export interface Catalog {
-    id: number;
-    name: string;
-    description: string;
-    quantityAvl: number;
-    price: number;
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  imageUrl: string;
+  description: string;
+	quantityAvl: number;
 }
 
 interface CatalogInCart {
-    name: string;
-    quantity: number;
-    price: number;
+  name: string;
+  quantity: number;
+  price: number;
 }
 
 export class CatalogService {
-    catalogs: Catalog[] = [
-        {
-            id: 1,
-            name: "Electronics",
-            description: "Gadgets and stuff",
-            quantityAvl: 10,
-            price: 100
-        },
-        {
-            id: 2,
-            name: "Books",
-            description: "Reading materials",
-            quantityAvl: 15,
-            price: 100
-        },
-        {
-            id: 3,
-            name: "Clothes",
-            description: "Fashionable stuff",
-            quantityAvl: 12,
-            price: 100
-        }
-    ];
-    catalogsInCart: CatalogInCart[] = [];
+  catalogs: Catalog[] = [
+    {
+			id: 1,
+			name: "Gaming Laptop",
+			category: "Laptops",
+			price: 1299,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
+			description: "High-performance gaming laptop with RGB keyboard.",
+			quantityAvl: 10
+		},
+		{
+			id: 2,
+			name: "Ultrabook",
+			category: "Laptops",
+			price: 999,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
+			description: "Sleek and lightweight ultrabook for professionals.",
+			quantityAvl: 15
+		},
+		{
+			id: 3,
+			name: "Business Laptop",
+			category: "Laptops",
+			price: 1099,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
+			description: "Reliable business laptop with long battery life.",
+			quantityAvl: 8
+		},
+		{
+			id: 4,
+			name: "2-in-1 Convertible Laptop",
+			category: "Laptops",
+			price: 899,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
+			description: "Versatile 2-in-1 laptop with a touchscreen display.",
+			quantityAvl: 12
+		},
+		{
+			id: 5,
+			name: "MacBook Pro",
+			category: "Laptops",
+			price: 1999,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/07/17/22/43/student-849825_1280.jpg",
+			description: "Powerful MacBook Pro with M-series chip.",
+			quantityAvl: 5
+		},
+		{
+			id: 6,
+			name: "Chromebook",
+			category: "Laptops",
+			price: 499,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
+			description: "Affordable and fast Chromebook for students.",
+			quantityAvl: 20
+		},
+		{
+			id: 7,
+			name: "Workstation Laptop",
+			category: "Laptops",
+			price: 2499,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
+			description: "High-end workstation laptop for professionals.",
+			quantityAvl: 6
+		},
+		{
+			id: 8,
+			name: "Budget Laptop",
+			category: "Laptops",
+			price: 599,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
+			description: "Affordable laptop with decent performance.",
+			quantityAvl: 18
+		},
+		{
+			id: 9,
+			name: "Student Laptop",
+			category: "Laptops",
+			price: 750,
+			imageUrl: "https://cdn.pixabay.com/photo/2015/06/24/15/45/macbook-820274_1280.jpg",
+			description: "Perfect laptop for students and daily use.",
+			quantityAvl: 25
+		}
+  ];
 
-    constructor() {
-    }
+  catalogsInCart: CatalogInCart[] = [];
 
-    getCatalogs(){
-        return this.catalogs;
-    }
+  constructor() {}
 
-    addToCart(catalog: any){
-        let cat: any = this.catalogsInCart.filter((c: any) => c.name === catalog.name)[0] || null;
-        if(cat){
-            cat.quantity++;
-        } else {
-            this.catalogsInCart.push({
-                name: catalog.name,
-                quantity: 1,
-                price: 100
-            });
-        }
+  getCatalogs() {
+    return this.catalogs;
+  }
+
+  addToCart(catalog: any) {
+    let cat: any =
+      this.catalogsInCart.filter((c: any) => c.name === catalog.name)[0] ||
+      null;
+    if (cat) {
+      cat.quantity++;
+    } else {
+      this.catalogsInCart.push({
+        name: catalog.name,
+        quantity: 1,
+        price: 100,
+      });
     }
+  }
 }
