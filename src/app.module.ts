@@ -1,4 +1,5 @@
 import * as angular from "angular";
+import { MainController } from "./controllers/main.controller";
 
 angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule"])
 .config(($routeProvider: any) => {
@@ -14,4 +15,5 @@ angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule"])
         .otherwise({
             redirectTo: "/catalog"
         });
-});
+})
+.controller("MainController", MainController);
