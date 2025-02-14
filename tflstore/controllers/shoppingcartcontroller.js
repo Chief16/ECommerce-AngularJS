@@ -10,6 +10,7 @@ exports.getById= function(req, res){
    var productId = itemId;
    var theItem;
    // iterate over each element in the array
+   
    for (var i = 0; i < theShoppingCart.length; i++){
       // look for the entry with a matching `id` value
       if (req.session.views.shoppingCart[i].id == productId){
@@ -24,7 +25,7 @@ exports.getById= function(req, res){
 exports.post=function(req, res){
     var data=req.body;
     req.session.views.shoppingCart.push(data);
-    res.send("added");
+    res.send(req.session.views.shoppingCart);
 };
  
 exports.put=function (req, res){

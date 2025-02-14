@@ -29,4 +29,8 @@ export class MainController {
     cartItemsCount() {
         return this.catalogService.getItemsCountFromCart() || 0;
     }
+
+    login() {
+        this.$location.path("/login");
+    }
 }

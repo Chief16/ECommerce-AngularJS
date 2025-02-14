@@ -4,12 +4,16 @@ var session =require('express-session');
 var parseurl=require('parseurl');
 var path=require('path');
 var bodyParser=require('body-parser');
+const cors = require('cors');
 
 const app=express();
+
 //configure HTTP pipeline 
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+
+app.use(cors());
 
 //Session Memory Configuration
 var sessionOptions={
@@ -37,7 +41,7 @@ app.use(function(req, res,next){
 // Simple route to simulate authentication
 app.post('/login', (req, res) => {
    const { email, password } = req.body;
-   if (email === 'ravi.tambade@transflower.in' && password === 'seed') {
+   if (email === 'test@gmail.com' && password === 'admin') {
        res.json({ success: true });
    } else {
        res.json({ success: false });
@@ -55,7 +59,7 @@ app.get("/", (req, res)=>{
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.listen(8000);
-console.log("ShoppingCart Web App is listening on port 8000");
+app.listen(3000);
+console.log("ShoppingCart Web App is listening on port 3000");
 
 module.exports = app;

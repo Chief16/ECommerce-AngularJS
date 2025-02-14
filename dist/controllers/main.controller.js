@@ -22,6 +22,9 @@ var MainController = /** @class */ (function () {
     MainController.prototype.cartItemsCount = function () {
         return this.catalogService.getItemsCountFromCart() || 0;
     };
+    MainController.prototype.login = function () {
+        this.$location.path("/login");
+    };
     MainController.$inject = ["$location", "AuthService", "CatalogService"]; // Fix service name (match registered name)
     return MainController;
 }());
