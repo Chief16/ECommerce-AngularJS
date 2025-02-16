@@ -1,7 +1,7 @@
 angular
     .module("CatalogModule", [])
     .controller("CatalogController", CatalogController)
-    .service("CatalogService", CatalogService)
+    .service("CatalogService", ["$http", "CartService", CatalogService])
+    .service("CartService", CartService)
     .filter("capitalize", function () { return new CapitalizeFilter().transform; })
-    .filter("search", function () { return new SearchFilter().transform; })
-    .service("CartService", CatalogService);
+    .filter("search", function () { return new SearchFilter().transform; });

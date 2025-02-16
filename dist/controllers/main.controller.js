@@ -24,6 +24,9 @@ var MainController = /** @class */ (function () {
     MainController.prototype.login = function () {
         this.$location.path("/login");
     };
+    MainController.prototype.goToCart = function () {
+        this.$location.path("/cart");
+    };
     MainController.$inject = ["$location", "AuthService", "CartService"];
     return MainController;
 }());

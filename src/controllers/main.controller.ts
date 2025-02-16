@@ -32,4 +32,8 @@ export class MainController {
     login() {
         this.$location.path("/login");
     }
+
+    goToCart(){
+        this.$location.path("/cart");
+    }
 }

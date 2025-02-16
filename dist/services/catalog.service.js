@@ -10,9 +10,10 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 var CatalogService = /** @class */ (function () {
-    function CatalogService($http) {
+    function CatalogService($http, cartService) {
         this.$http = $http;
-        this.$inject = ["$http"];
+        this.cartService = cartService;
+        this.$inject = ["$http", "CartService"];
         this.authUrl = "https://fakestoreapi.com/products/";
         this.catalogs = [];
     }
@@ -20,8 +21,7 @@ var CatalogService = /** @class */ (function () {
         var _this = this;
         return this.$http.get(this.authUrl)
             .then(function (response) {
-            response.data = _this.addQuantityAvlToCatalogs(response.data);
-            return _this.convertPriceToINR(response.data);
+            return _this.manageCatalogs(response.data);
         })
             .catch(function (error) {
             console.error("Error fetching catalogs:", error);
@@ -59,12 +59,31 @@ var CatalogService = /** @class */ (function () {
             return [];
         });
     };
+    CatalogService.prototype.manageCatalogs = function (data) {
+        var catalogs = JSON.parse(JSON.stringify(data));
+        catalogs = this.convertPriceToINR(catalogs);
+        catalogs = this.addQuantityAvlToCatalogs(catalogs);
+        catalogs = this.updateCatalogsAsPerCart(catalogs);
+        return catalogs;
+    };
     CatalogService.prototype.convertPriceToINR = function (data) {
         return data.map(function (c) { return __assign(__assign({}, c), { price: c.price * 86.45 }); });
     };
     CatalogService.prototype.addQuantityAvlToCatalogs = function (catalogs) {
-        var randomValue = Math.floor(Math.random() * (20 - 5 + 1)) + 5; // generated random value between 5 and 20
-        return catalogs.map(function (c) { return __assign(__assign({}, c), { quantityAvl: randomValue, itemsInCart: 0 }); });
+        // generate random value between 0 and 15, add default 0 items in cart
+        return catalogs.map(function (c) { return __assign(__assign({}, c), { quantityAvl: Math.floor(Math.random() * 15), itemsInCart: 0 }); });
+    };
+    CatalogService.prototype.updateCatalogsAsPerCart = function (catalogs) {
+        var catalogsInCart = this.cartService.getItemsFromCart();
+        catalogsInCart.forEach(function (item) {
+            var catalog = catalogs.filter(function (c) { return c.title === item.title; })[0];
+            catalog.quantityAvl -= item.quantity;
+            catalog.itemsInCart = item.quantity;
+            if(catalog.quantityAvl < 0) {
+                catalog.quantityAvl = 0;
+            }
+        });
+        return catalogs;
     };
     return CatalogService;
 }());

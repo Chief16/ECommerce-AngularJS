@@ -1,19 +1,19 @@
 import { Catalog } from "../interfaces/catalog";
 import * as ng from "angular";
+import { CartService } from "./cart.service";
 
 export class CatalogService {
-  private $inject = ["$http"];
+  private $inject = ["$http", "CartService"];
   private authUrl = "https://fakestoreapi.com/products/";
 
   catalogs: Catalog[] = [];
 
-  constructor(private $http: ng.IHttpService) {}
+  constructor(private $http: ng.IHttpService, private cartService: CartService) {}
 
   getCatalogs(): Promise<Catalog[]> {
     return this.$http.get<Catalog[]>(this.authUrl)
       .then((response) => {
-        response.data = this.addQuantityAvlToCatalogs(response.data);
-        return this.convertPriceToINR(response.data);
+        return this.manageCatalogs(response.data);
       })
       .catch((error) => {
         console.error("Error fetching catalogs:", error);
@@ -54,12 +54,33 @@ export class CatalogService {
       });
   }
 
+  manageCatalogs(data: Catalog[]): Catalog[]{
+    let catalogs = JSON.parse(JSON.stringify(data));
+    catalogs = this.convertPriceToINR(catalogs);
+    catalogs = this.addQuantityAvlToCatalogs(catalogs);
+    catalogs = this.updateCatalogsAsPerCart(catalogs);
+    return catalogs;
+  }
+
   convertPriceToINR(data: Catalog[]): Catalog[] {
     return data.map(c => { return { ...c, price : c.price * 86.45 } });
   }
 
   addQuantityAvlToCatalogs(catalogs: Catalog[]) {
-    const randomValue = Math.floor(Math.random() * (20 - 5 + 1)) + 5; // generated random value between 5 and 20
-    return catalogs.map(c => { return { ...c, quantityAvl: randomValue, itemsInCart: 0 } });
+    // generate random value between 0 and 15, add default 0 items in cart
+    return catalogs.map(c => { return { ...c, quantityAvl: Math.floor(Math.random() * 15), itemsInCart: 0 } });
+  }
+
+  updateCatalogsAsPerCart(catalogs: Catalog[]) {
+    let catalogsInCart = this.cartService.getItemsFromCart();
+    catalogsInCart.forEach((item) => {
+      let catalog = catalogs.filter((c) => c.title === item.title)[0];
+      catalog.quantityAvl -= item.quantity;
+      catalog.itemsInCart = item.quantity;
+      if(catalog.quantityAvl < 0) {
+        catalog.quantityAvl = 0;
+      }
+    });
+    return catalogs;
   }
 }

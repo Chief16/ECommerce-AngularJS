@@ -1,0 +1,23 @@
+<div ng-controller="CartController as cartCtrl" class="w-75">
+  <h3 class="text-start">Cart <small>( Items in cart : {{cartCtrl.cartItems.length}} )</small></h3>
+  <div class="w-100 d-flex flex-column gap-3 justify-content-center align-items-center mt-4">
+      <p ng-if="cartCtrl.cartItems.length == 0" class="mt-4">Loading ...</p>
+      <div ng-repeat="cart in cartCtrl.cartItems" class="card mb-3 w-100 d-flex flex-row align-items-center p-3">
+          <img ng-src="{{ cart.image }}" class="img-thumbnail me-3" style="width: 200px; height: auto;" alt="Product Image" />
+          <div class="card-body">
+              <h5 class="card-title">{{ cart.title }}</h5>
+              <p class="card-text"><strong>Stock Available:</strong> {{ cart.quantity }}</p>
+              <p class="card-text"><strong>Price:</strong> {{ cart.price | currency:'INR ' : 2 }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                  <button class="btn btn-primary" 
+                          ng-if="cart.quantityAvl != 0"
+                          ng-click="cartCtrl.addToCart(cart)">
+                      Remove from Cart
+                  </button>
+                  <!-- <label class="text-primary" for="" ng-if="cart.itemsInCart > 0">In Cart : {{ cart.itemsInCart }}</label> -->
+              </div>
+          </div>
+      </div>
+      <button class="btn btn-warning">Place Order</button>
+  </div>
+</div>
