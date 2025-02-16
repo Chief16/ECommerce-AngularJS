@@ -1,16 +1,15 @@
 import * as angular from "angular";
 import { AuthService } from "../services/auth.service";
-import { CatalogService } from "../services/catalog.service";
+import { UserService } from "../services/user.service";
 
 export class MainController {
-    static $inject = ["$location", "AuthService", "CatalogService"]; // Fix service name (match registered name)
+    static $inject = ["$location", "AuthService", "CatalogService", "UserService"]; // Fix service name (match registered name)
 
-    constructor(private $location: angular.ILocationService, private authService: AuthService, private catalogService: CatalogService) { // Fix service name (match registered name)
+    constructor(private $location: angular.ILocationService, private authService: AuthService, private userService: UserService) {
         if(this.authService.isUserLoggedIn()) {
-            // alert("Already logged in!");
             this.$location.path("/catalog");
         }
-    } // Removed unused $scope
+    }
 
     isUserLoggedIn() {
         return this.authService.isUserLoggedIn();
@@ -27,7 +26,7 @@ export class MainController {
     }
 
     cartItemsCount() {
-        return this.catalogService.getItemsCountFromCart() || 0;
+        // return this.catalogService.getItemsCountFromCart() || 0;
     }
 
     login() {

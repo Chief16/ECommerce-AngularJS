@@ -1,7 +1,7 @@
 import * as angular from "angular";
 import { MainController } from "./controllers/main.controller";
 
-angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule"])
+angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule", "UserModule"])
 .config(($routeProvider: any) => {
     $routeProvider
         .when("/login", {

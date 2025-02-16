@@ -1,10 +1,14 @@
 export interface Catalog {
-    id: number;
-    name: string;
-    category: string;
-    price: number;
-    imageUrl: string;
-    description: string;
-    quantityAvl: number;
-    inCart: number;
-  }
+  id: number
+  title: string
+  price: number
+  description: string
+  category: string
+  image: string
+  rating: Rating
+}
+
+interface Rating {
+  rate: number
+  count: number
+}

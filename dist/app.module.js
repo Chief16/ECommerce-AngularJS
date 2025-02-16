@@ -1,5 +1,4 @@
-
-angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule"])
+angular.module("eCommerce", ['ngRoute', "authModule", "catalogModule", "UserModule"])
     .config(function ($routeProvider) {
     $routeProvider
         .when("/login", {

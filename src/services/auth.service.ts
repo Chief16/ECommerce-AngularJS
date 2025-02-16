@@ -1,35 +1,28 @@
-import * as ng from 'angular';
+import * as ng from "angular";
 
 export class AuthService {
-  static $inject = ['$http'];
+  static $inject = ["$http"];
 
-  authUrl = 'http://localhost:3000/login';
+  private API_URL = "https://fakestoreapi.com/auth/login";
 
-  constructor(private $http: ng.IHttpService){
+  constructor(private $http: ng.IHttpService) {}
 
-  }
-
-  loginUser(username: string, password: string) {
-    if(username === 'test@gmail.com' && password === 'admin') {
-      this.setAuthenticated();
-      return true;
-    }
-    return false;
+  loginUser(username: string, password: string): ng.IHttpPromise<any> {
+    return this.$http.post(this.API_URL, { username, password });
   }
 
   setAuthenticated() {
-    sessionStorage.setItem('authenticated', "true");
+    sessionStorage.setItem("authenticated", "true");
   }
 
   logoutUser() {
-    sessionStorage.removeItem('authenticated');
+    sessionStorage.removeItem("authenticated");
   }
 
   isUserLoggedIn() {
-    return sessionStorage.getItem('authenticated') === "true";
+    return sessionStorage.getItem("authenticated") === "true";
   }
 }
-
 
 // loginUser(username: string, password: string): ng.IHttpPromise<any> {
 //   return this.$http.post(this.authUrl, { username, password });

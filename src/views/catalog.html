@@ -1,22 +1,36 @@
 <div ng-controller="CatalogController as catCtrl">
     <h3 class="text-center">Catalogs</h3>
-    <div class=" w-100 d-flex gap-3 flex-wrap justify-content-center">
-        <div ng-repeat="catalog in catCtrl.catalogs" class="w-25">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div>
-                        <img ng-src="{{ catalog.imageUrl }}" class="w-100" alt="..."/>
-                    </div>
-                    <div>
-                        <h5 class="card-title">{{ catalog.name }}</h5>
-                        <p class="card-text">{{ catalog.description }}</p>
-                        <p class="card-text">Available Stock : {{ catalog.quantityAvl }}</p>
-                        <p class="card-text">Price : {{ catalog.price | currency:'INR ' : 2 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <button class="btn btn-primary" ng-disabled="catalog.quantityAvl == 0" ng-click="catCtrl.addToCart(catalog)">Add to cart</button>
-                            <label for="">In Cart : {{ catalog.inCart }}</label>
-                        </div>
-                    </div>
+    <div class="align-items-center d-flex flex-column w-100 mt-4">
+        <div class="d-flex w-75">
+            <div class="w-50">
+                <input ng-disabled="catCtrl.catalogs.length == 0" type="text" class="form-control w-75" placeholder="Search Catalogs by Name" ng-model="catCtrl.searchText" />
+            </div>
+            <div class="align-items-center d-flex justify-content-end w-50">
+                <label for="category">Category : </label>
+                <select name="categories" name="category" class="form-control w-25 ms-2" ng-model="catCtrl.selectedCategory" ng-change="catCtrl.getCatalogsByCategory()">
+                    <option value="All">All</option>
+                    <option ng-repeat="category in catCtrl.categories" value="{{ category }}">{{ category | capitalize }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="w-100 d-flex flex-column gap-3 justify-content-center align-items-center mt-2">
+        <p ng-if="catCtrl.catalogs.length == 0" class="mt-4">Loading ...</p>
+        <div ng-repeat="catalog in catCtrl.catalogs | search:'title':catCtrl.searchText" class="card mb-3 w-75 d-flex flex-row align-items-center p-3">
+            <img ng-src="{{ catalog.image }}" class="img-thumbnail me-3" style="width: 200px; height: auto;" alt="Product Image" />
+            <div class="card-body">
+                <h5 class="card-title">{{ catalog.title }}</h5>
+                <p class="card-text">{{ catalog.description }}</p>
+                <p class="card-text"><strong>Category:</strong> {{ catalog.category }}</p>
+                <!-- <p class="card-text">Stock Available: {{ catalog.rating.count }}</p> -->
+                <p class="card-text"><strong>Rating:</strong> {{ catalog.rating.rate }} / 5</p>
+                <p class="card-text"><strong>Price:</strong> {{ catalog.price | currency:'INR ' : 2 }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <button class="btn btn-primary" 
+                            ng-disabled="catalog.rating.count === 0" 
+                            ng-click="catCtrl.addToCart(catalog)">
+                        Add to Cart
+                    </button>
                 </div>
             </div>
         </div>
