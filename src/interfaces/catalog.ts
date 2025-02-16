@@ -6,6 +6,8 @@ export interface Catalog {
   category: string
   image: string
   rating: Rating
+  quantityAvl: number
+  itemsInCart: number
 }
 
 interface Rating {

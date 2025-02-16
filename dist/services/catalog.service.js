@@ -20,6 +20,7 @@ var CatalogService = /** @class */ (function () {
         var _this = this;
         return this.$http.get(this.authUrl)
             .then(function (response) {
+            response.data = _this.addQuantityAvlToCatalogs(response.data);
             return _this.convertPriceToINR(response.data);
         })
             .catch(function (error) {
@@ -60,6 +61,10 @@ var CatalogService = /** @class */ (function () {
     };
     CatalogService.prototype.convertPriceToINR = function (data) {
         return data.map(function (c) { return __assign(__assign({}, c), { price: c.price * 86.45 }); });
+    };
+    CatalogService.prototype.addQuantityAvlToCatalogs = function (catalogs) {
+        var randomValue = Math.floor(Math.random() * (20 - 5 + 1)) + 5; // generated random value between 5 and 20
+        return catalogs.map(function (c) { return __assign(__assign({}, c), { quantityAvl: randomValue, itemsInCart: 0 }); });
     };
     return CatalogService;
 }());

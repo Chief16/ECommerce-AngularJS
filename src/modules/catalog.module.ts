@@ -5,8 +5,9 @@ import { CapitalizeFilter } from "../filters/capitalize.filter";
 import { SearchFilter } from "../filters/search.filter";
 
 angular
-  .module("catalogModule", [])
+  .module("CatalogModule", [])
   .controller("CatalogController", CatalogController)
   .service("CatalogService", CatalogService)
   .filter("capitalize", () => new CapitalizeFilter().transform)
-  .filter("search", () => new SearchFilter().transform);
+  .filter("search", () => new SearchFilter().transform)
+  .service("CartService", CatalogService);

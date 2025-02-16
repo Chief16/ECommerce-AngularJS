@@ -12,6 +12,7 @@ export class CatalogService {
   getCatalogs(): Promise<Catalog[]> {
     return this.$http.get<Catalog[]>(this.authUrl)
       .then((response) => {
+        response.data = this.addQuantityAvlToCatalogs(response.data);
         return this.convertPriceToINR(response.data);
       })
       .catch((error) => {
@@ -54,6 +55,11 @@ export class CatalogService {
   }
 
   convertPriceToINR(data: Catalog[]): Catalog[] {
-    return data.map(c => { return { ...c, price : c.price * 86.45}});
+    return data.map(c => { return { ...c, price : c.price * 86.45 } });
+  }
+
+  addQuantityAvlToCatalogs(catalogs: Catalog[]) {
+    const randomValue = Math.floor(Math.random() * (20 - 5 + 1)) + 5; // generated random value between 5 and 20
+    return catalogs.map(c => { return { ...c, quantityAvl: randomValue, itemsInCart: 0 } });
   }
 }

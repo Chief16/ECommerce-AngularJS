@@ -1,39 +1,36 @@
 var CartService = /** @class */ (function () {
-    function CartService($http) {
-        this.$http = $http;
-        this.$inject = ["$http"];
-        this.authUrl = "https://fakestoreapi.com/cart";
+    function CartService() {
         this.catalogs = [];
         this.catalogsInCart = [];
+        this.catalogsInCart = JSON.parse(JSON.stringify(localStorage.getItem("catalogsInCart"))) || [];
     }
     CartService.prototype.addToCart = function (catalog) {
-        var _this = this;
-        return this.$http
-            .post(this.authUrl, catalog)
-            .then(function (response) {
-            _this.catalogsInCart = JSON.parse(JSON.stringify(response.data));
-            return _this.catalogsInCart;
-        })
-            .catch(function (error) {
-            console.log(error);
-            return [];
-        });
+        var cat = this.catalogsInCart.filter(function (c) { return c.name === catalog.name; })[0] ||
+            null;
+        if (cat) {
+            cat.quantity++;
+        }
+        else {
+            this.catalogsInCart.push({
+                name: catalog.name,
+                quantity: 1,
+                price: catalog.price,
+            });
+        }
+        sessionStorage.setItem("catalogsInCart", JSON.parse(JSON.stringify(this.catalogsInCart)));
     };
     CartService.prototype.getItemsFromCart = function () {
-        var _this = this;
-        return this.$http
-            .get(this.authUrl)
-            .then(function (response) {
-            _this.catalogsInCart = JSON.parse(JSON.stringify(response.data));
-            return _this.catalogsInCart;
-        })
-            .catch(function (error) {
-            console.log(error);
-            return [];
-        });
+        return this.catalogsInCart;
     };
     CartService.prototype.getItemsCountFromCart = function () {
-        return this.catalogsInCart.length || 0;
+        return this.catalogsInCart.reduce(function (acc, item) { return acc + item.quantity; }, 0) || 0;
+    };
+    CartService.prototype.getTotalCartValue = function () {
+        return this.catalogsInCart.reduce(function (acc, item) { return acc + item.price * item.quantity; }, 0);
+    };
+    CartService.prototype.removeFromCart = function (item) {
+        this.catalogsInCart = this.catalogsInCart.filter(function (c) { return c.name !== item.name; });
+        sessionStorage.setItem("catalogsInCart", JSON.parse(JSON.stringify(this.catalogsInCart)));
     };
     return CartService;
 }());

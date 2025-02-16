@@ -1,14 +1,15 @@
 import { Catalog } from "../interfaces/catalog";
+import { CartService } from "../services/cart.service";
 import { CatalogService } from "../services/catalog.service";
 
 export class CatalogController {
-    static $inject = ["CatalogService"];
+    static $inject = ["CatalogService", "CartService"];
     catalogs: Catalog[] = [];
     categories: string[] = [];
     searchText: string = "";
     selectedCategory: string = "";
     
-    constructor(private catalogService: CatalogService) {
+    constructor(private catalogService: CatalogService, private cartService: CartService) {
         this.getCatalogs();
         this.getCategories();
     }
@@ -47,5 +48,8 @@ export class CatalogController {
             alert("Out of stock!");
             return;
         }
+        this.cartService.addToCart(catalog);
+        this.catalogs.filter((c: any) => c.title === catalog.title)[0].quantityAvl--;
+        this.catalogs.filter((c: any) => c.title === catalog.title)[0].itemsInCart++;
     }
 }

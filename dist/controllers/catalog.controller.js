@@ -1,6 +1,7 @@
 var CatalogController = /** @class */ (function () {
-    function CatalogController(catalogService) {
+    function CatalogController(catalogService, cartService) {
         this.catalogService = catalogService;
+        this.cartService = cartService;
         this.catalogs = [];
         this.categories = [];
         this.searchText = "";
@@ -42,7 +43,10 @@ var CatalogController = /** @class */ (function () {
             alert("Out of stock!");
             return;
         }
+        this.cartService.addToCart(catalog);
+        this.catalogs.filter(function (c) { return c.title === catalog.title; })[0].quantityAvl--;
+        this.catalogs.filter(function (c) { return c.title === catalog.title; })[0].itemsInCart++;
     };
-    CatalogController.$inject = ["CatalogService"];
+    CatalogController.$inject = ["CatalogService", "CartService"];
     return CatalogController;
 }());

@@ -1,42 +1,54 @@
 import { Catalog } from "../interfaces/catalog";
-import { Cart } from "../interfaces/catalogInCart";
 
 export class CartService {
-  private $inject = ["$http"];
-  private authUrl = "https://fakestoreapi.com/cart";
-
   catalogs: Catalog[] = [];
-  catalogsInCart: Cart[] = [];
+  catalogsInCart: CatalogInCart[] = [];
 
-  constructor(private $http: ng.IHttpService) {}
-
-  addToCart(catalog: any): Promise<Cart[]> {
-    return this.$http
-      .post(this.authUrl, catalog)
-      .then(response => {
-        this.catalogsInCart = JSON.parse(JSON.stringify(response.data));
-        return this.catalogsInCart;
-      })
-      .catch(error => {
-        console.log(error);
-        return [];
-      });
+  constructor() {
+    this.catalogsInCart = JSON.parse(JSON.stringify(localStorage.getItem("catalogsInCart"))) || [];
   }
 
-  getItemsFromCart(): Promise<Cart[]> {
-    return this.$http
-      .get<Cart[]>(this.authUrl)
-      .then(response => {
-        this.catalogsInCart = JSON.parse(JSON.stringify(response.data));
-        return this.catalogsInCart;
-      })
-      .catch(error => {
-        console.log(error);
-        return [];
+  addToCart(catalog: any) {
+    let cat: any =
+      this.catalogsInCart.filter((c: any) => c.name === catalog.name)[0] ||
+      null;
+    if (cat) {
+      cat.quantity++;
+    } else {
+      this.catalogsInCart.push({
+        name: catalog.name,
+        quantity: 1,
+        price: catalog.price,
       });
+    }
+    sessionStorage.setItem(
+      "catalogsInCart",
+      JSON.parse(JSON.stringify(this.catalogsInCart))
+    );
+  }
+
+  getItemsFromCart() {
+    return this.catalogsInCart;
   }
 
   getItemsCountFromCart() {
-    return this.catalogsInCart.length || 0;
+    return this.catalogsInCart.reduce((acc, item) => acc + item.quantity, 0) || 0;
+  }
+
+  getTotalCartValue() {
+    return this.catalogsInCart.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+  }
+
+  removeFromCart(item: CatalogInCart) {
+    this.catalogsInCart = this.catalogsInCart.filter(
+      (c) => c.name !== item.name
+    );
+    sessionStorage.setItem(
+      "catalogsInCart",
+      JSON.parse(JSON.stringify(this.catalogsInCart))
+    );
   }
 }

@@ -22,15 +22,22 @@
                 <h5 class="card-title">{{ catalog.title }}</h5>
                 <p class="card-text">{{ catalog.description }}</p>
                 <p class="card-text"><strong>Category:</strong> {{ catalog.category }}</p>
-                <!-- <p class="card-text">Stock Available: {{ catalog.rating.count }}</p> -->
                 <p class="card-text"><strong>Rating:</strong> {{ catalog.rating.rate }} / 5</p>
+                <p class="card-text"><strong>Stock Available:</strong> {{ catalog.quantityAvl }}</p>
                 <p class="card-text"><strong>Price:</strong> {{ catalog.price | currency:'INR ' : 2 }}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <button class="btn btn-primary" 
-                            ng-disabled="catalog.rating.count === 0" 
+                            ng-if="catalog.quantityAvl != 0"
                             ng-click="catCtrl.addToCart(catalog)">
                         Add to Cart
                     </button>
+                    <button class="btn btn-primary" 
+                            ng-if="catalog.quantityAvl == 0"
+                            ng-disabled="true"
+                            >
+                        Item Out of Stock
+                    </button>
+                    <label class="text-primary" for="" ng-if="catalog.itemsInCart > 0">In Cart : {{ catalog.itemsInCart }}</label>
                 </div>
             </div>
         </div>
