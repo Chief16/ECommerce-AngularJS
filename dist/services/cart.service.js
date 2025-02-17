@@ -43,8 +43,8 @@ var CartService = /** @class */ (function () {
         sessionStorage.setItem("orders", JSON.stringify(this.catalogsInCart));
         this.catalogsInCart = [];
         sessionStorage.setItem("catalogsInCart", JSON.stringify(this.catalogsInCart));
-        this.alertService.showSuccess("Order placed successfully!");
-        this.$location.path("/orders");
+        this.alertService.showSuccess("Order placed successfully! It will be delivered in 2-3 business days.", 5000);
+        this.$location.path("/catalog");
     };
     CartService.$inject = ["AlertService", "$location"];
     return CartService;

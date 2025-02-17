@@ -6,12 +6,12 @@ export class AlertService {
     constructor() {
     }
 
-    addAlert(alert: IAlert) {
+    addAlert(alert: IAlert, time: number = 3000) {
         this.alerts.push(alert);
         
         setTimeout(() => {
             this.removeAlert(alert);
-        }, 3000);
+        }, time);
     }
 
     getAlerts() {
@@ -22,11 +22,11 @@ export class AlertService {
         this.alerts.splice(index, 1);
     }
 
-    showSuccess(message: string) {
+    showSuccess(message: string, time: number = 3000) {
         this.addAlert({
             type: "success",
             message
-        });
+        }, time);
     }
 
     showError(message: string) {

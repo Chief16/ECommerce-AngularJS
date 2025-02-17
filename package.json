@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && node configure_dist.js"
+    "build": "tsc",
+    "dev": "tsc && node configure_dist.js"
   },
   "author": "",
   "license": "ISC",

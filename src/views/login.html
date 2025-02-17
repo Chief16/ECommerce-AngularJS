@@ -4,11 +4,11 @@
         <form ng-submit="ctrl.login()">
             <div class="mb-3">
                 <label for="email" class="form-label">Username</label>
-                <input type="text" ng-model="ctrl.user.username" class="form-control" id="email" placeholder="Enter your username">
+                <input type="text" title="Enter username. ex : johnd" ng-model="ctrl.user.username" class="form-control" id="email" placeholder="Enter your username">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" ng-model="ctrl.user.password" class="form-control" id="password" placeholder="Enter your password">
+                <input type="password" title="Enter password. ex m38rmF$" ng-model="ctrl.user.password" class="form-control" id="password" placeholder="Enter your password">
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
             <p class="d-flex justify-content-center mt-3"><a href="#" ng-click="ctrl.skipLogin()" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Skip login for now</a></p>

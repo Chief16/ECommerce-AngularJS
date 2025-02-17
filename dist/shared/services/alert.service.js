@@ -2,12 +2,13 @@ var AlertService = /** @class */ (function () {
     function AlertService() {
         this.alerts = [];
     }
-    AlertService.prototype.addAlert = function (alert) {
+    AlertService.prototype.addAlert = function (alert, time) {
         var _this = this;
+        if (time === void 0) { time = 3000; }
         this.alerts.push(alert);
         setTimeout(function () {
             _this.removeAlert(alert);
-        }, 3000);
+        }, time);
     };
     AlertService.prototype.getAlerts = function () {
         return this.alerts;
@@ -15,11 +16,12 @@ var AlertService = /** @class */ (function () {
     AlertService.prototype.closeAlert = function (index) {
         this.alerts.splice(index, 1);
     };
-    AlertService.prototype.showSuccess = function (message) {
+    AlertService.prototype.showSuccess = function (message, time) {
+        if (time === void 0) { time = 3000; }
         this.addAlert({
             type: "success",
             message: message
-        });
+        }, time);
     };
     AlertService.prototype.showError = function (message) {
         this.addAlert({
