@@ -1,5 +1,6 @@
 var CartService = /** @class */ (function () {
-    function CartService() {
+    function CartService(alertService) {
+        this.alertService = alertService;
         this.catalogsInCart = [];
         this.catalogsInCart = JSON.parse(sessionStorage.getItem("catalogsInCart")) || [];
     }
@@ -14,23 +15,30 @@ var CartService = /** @class */ (function () {
                 title: catalog.title,
                 quantity: 1,
                 price: catalog.price,
-                image: catalog.image
+                image: catalog.image,
             });
         }
         sessionStorage.setItem("catalogsInCart", JSON.stringify(this.catalogsInCart));
+        this.alertService.showSuccess("Item added to cart successfully!");
     };
     CartService.prototype.getItemsFromCart = function () {
         return this.catalogsInCart || [];
     };
     CartService.prototype.getItemsCountFromCart = function () {
-        return this.catalogsInCart?.reduce(function (acc, item) { return acc + item.quantity; }, 0) || 0;
+        var _a;
+        return ((_a = this.catalogsInCart) === null || _a === void 0 ? void 0 : _a.reduce(function (acc, item) { return acc + item.quantity; }, 0)) || 0;
     };
     CartService.prototype.getTotalCartValue = function () {
-        return this.catalogsInCart?.reduce(function (acc, item) { return acc + item.price * item.quantity; }, 0);
+        var _a;
+        return (_a = this.catalogsInCart) === null || _a === void 0 ? void 0 : _a.reduce(function (acc, item) { return acc + item.price * item.quantity; }, 0);
     };
     CartService.prototype.removeFromCart = function (item) {
-        this.catalogsInCart = this.catalogsInCart.filter(function (c) { return c.title !== item.title; });
+        var _a;
+        this.catalogsInCart = (_a = this.catalogsInCart) === null || _a === void 0 ? void 0 : _a.filter(function (c) { return c.title !== item.title; });
         sessionStorage.setItem("catalogsInCart", JSON.parse(JSON.stringify(this.catalogsInCart)));
+        this.alertService.showSuccess("Item removed from cart successfully!");
     };
+    CartService.$inject = ["AlertService"];
     return CartService;
 }());
+

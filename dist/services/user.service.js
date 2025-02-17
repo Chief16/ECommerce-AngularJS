@@ -30,3 +30,4 @@ var UserService = /** @class */ (function () {
     UserService.$inject = ["$http"];
     return UserService;
 }());
+

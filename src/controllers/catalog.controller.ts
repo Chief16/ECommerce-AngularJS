@@ -1,10 +1,10 @@
-import { Catalog } from "../interfaces/catalog";
+import { ICatalog } from "../interfaces/catalog";
 import { CartService } from "../services/cart.service";
 import { CatalogService } from "../services/catalog.service";
 
 export class CatalogController {
     static $inject = ["CatalogService", "CartService"];
-    catalogs: Catalog[] = [];
+    catalogs: ICatalog[] = [];
     categories: string[] = [];
     searchText: string = "";
     selectedCategory: string = "";

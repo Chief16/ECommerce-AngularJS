@@ -30,3 +30,4 @@ var MainController = /** @class */ (function () {
     MainController.$inject = ["$location", "AuthService", "CartService"];
     return MainController;
 }());
+

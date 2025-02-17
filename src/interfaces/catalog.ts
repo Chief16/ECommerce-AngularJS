@@ -1,16 +1,16 @@
-export interface Catalog {
+export interface ICatalog {
   id: number
   title: string
   price: number
   description: string
   category: string
   image: string
-  rating: Rating
+  rating: IRating
   quantityAvl: number
   itemsInCart: number
 }
 
-interface Rating {
+interface IRating {
   rate: number
   count: number
 }

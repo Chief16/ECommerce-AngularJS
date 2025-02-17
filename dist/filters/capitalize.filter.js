@@ -6,3 +6,4 @@ var CapitalizeFilter = /** @class */ (function () {
     };
     return CapitalizeFilter;
 }());
+

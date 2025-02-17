@@ -10,3 +10,4 @@ var SearchFilter = /** @class */ (function () {
     };
     return SearchFilter;
 }());
+

@@ -27,3 +27,4 @@ var AuthController = /** @class */ (function () {
     AuthController.$inject = ["$location", "AuthService"]; // Fix service name (match registered name)
     return AuthController;
 }());
+

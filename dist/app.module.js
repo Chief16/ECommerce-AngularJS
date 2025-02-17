@@ -1,4 +1,6 @@
-angular.module("eCommerce", ['ngRoute', "AuthModule", "CatalogModule", "UserModule", "CartModule"])
+
+
+angular.module("eCommerce", ['ngRoute', "ui.bootstrap", "SharedModule", "AuthModule", "CatalogModule", "UserModule", "CartModule"])
     .config(function ($routeProvider) {
     $routeProvider
         .when("/login", {

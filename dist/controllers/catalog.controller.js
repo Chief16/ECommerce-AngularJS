@@ -50,3 +50,4 @@ var CatalogController = /** @class */ (function () {
     CatalogController.$inject = ["CatalogService", "CartService"];
     return CatalogController;
 }());
+

@@ -1,7 +1,10 @@
-export class CartService {
-  catalogsInCart: CatalogInCart[] = [];
+import { AlertService } from "../shared/services/alert.service";
 
-  constructor() {
+export class CartService {
+  static $inject = ["AlertService"];
+  catalogsInCart: ICatalogInCart[] = [];
+
+  constructor(private alertService: AlertService) {
     this.catalogsInCart = JSON.parse(sessionStorage.getItem("catalogsInCart") as string)|| [];
   }
 
@@ -23,6 +26,7 @@ export class CartService {
       "catalogsInCart",
       JSON.stringify(this.catalogsInCart)
     );
+    this.alertService.showSuccess("Item added to cart successfully!");
   }
 
   getItemsFromCart() {
@@ -40,7 +44,7 @@ export class CartService {
     );
   }
 
-  removeFromCart(item: CatalogInCart) {
+  removeFromCart(item: ICatalogInCart) {
     this.catalogsInCart = this.catalogsInCart?.filter(
       (c) => c.title !== item.title
     );
@@ -48,5 +52,6 @@ export class CartService {
       "catalogsInCart",
       JSON.parse(JSON.stringify(this.catalogsInCart))
     );
+    this.alertService.showSuccess("Item removed from cart successfully!");
   }
 }

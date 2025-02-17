@@ -1,3 +1,9 @@
+
+
+
+
+
+
 angular
     .module("CatalogModule", [])
     .controller("CatalogController", CatalogController)

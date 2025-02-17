@@ -79,7 +79,7 @@ var CatalogService = /** @class */ (function () {
             var catalog = catalogs.filter(function (c) { return c.title === item.title; })[0];
             catalog.quantityAvl -= item.quantity;
             catalog.itemsInCart = item.quantity;
-            if(catalog.quantityAvl < 0) {
+            if (catalog.quantityAvl < 0) {
                 catalog.quantityAvl = 0;
             }
         });
@@ -87,3 +87,4 @@ var CatalogService = /** @class */ (function () {
     };
     return CatalogService;
 }());
+
