@@ -1,6 +1,6 @@
 # AngularJS Project
 
-This is an AngularJS project. Follow the steps below to set it up and run it on your local machine.
+This is an AngularJS ECommerce project. Follow the steps below to set it up and run it on your local machine.
 
 ## Prerequisites
 Make sure you have the following installed on your system:
