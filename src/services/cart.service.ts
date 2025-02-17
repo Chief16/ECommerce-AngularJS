@@ -54,4 +54,11 @@ export class CartService {
     );
     this.alertService.showSuccess("Item removed from cart successfully!");
   }
+
+  checkout() {
+    sessionStorage.setItem("orders", JSON.stringify(this.catalogsInCart));
+    this.catalogsInCart = [];
+    sessionStorage.setItem("catalogsInCart", JSON.stringify(this.catalogsInCart));
+    this.alertService.showSuccess("Order placed successfully!");
+  }
 }

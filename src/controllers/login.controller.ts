@@ -17,7 +17,8 @@ export class AuthController {
       .loginUser(this.user.username, this.user.password)
       .then(res => {
         this.authService.setAuthenticated();
-        this.$location.path("/catalog");
+        window.history.back();
+        // this.$location.path("/catalog");
       })
       .catch(e => {
         console.error(e);

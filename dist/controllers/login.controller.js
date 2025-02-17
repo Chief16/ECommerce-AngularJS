@@ -14,7 +14,8 @@ var AuthController = /** @class */ (function () {
             .loginUser(this.user.username, this.user.password)
             .then(function (res) {
             _this.authService.setAuthenticated();
-            _this.$location.path("/catalog");
+            window.history.back();
+            // this.$location.path("/catalog");
         })
             .catch(function (e) {
             console.error(e);

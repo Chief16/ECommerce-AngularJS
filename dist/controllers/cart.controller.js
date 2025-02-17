@@ -1,24 +1,40 @@
 var CartController = /** @class */ (function () {
-    function CartController(cartService) {
+    function CartController(cartService, authService, $location) {
         this.cartService = cartService;
+        this.authService = authService;
+        this.$location = $location;
         this.cartItems = [];
-        this.total = 0;
+        this.totalPrice = 0;
+        this.totalItems = 0;
+        this.placeOrderMessage = "Place Order";
+        this.isUserLoggedIn = true;
+        if (!this.authService.isUserLoggedIn()) {
+            this.isUserLoggedIn = false;
+            this.placeOrderMessage = "Login & Place Order";
+        }
         this.getCartItems();
     }
     CartController.prototype.getCartItems = function () {
         this.cartItems = this.cartService.getItemsFromCart();
-        this.total = this.cartService.getTotalCartValue();
+        this.totalPrice = this.cartService.getTotalCartValue();
+        this.totalItems = this.cartService.getItemsCountFromCart();
     };
     CartController.prototype.removeFromCart = function (item) {
         this.cartService.removeFromCart(item);
         this.getCartItems();
-        this.total = this.cartService.getTotalCartValue();
+        this.totalPrice = this.cartService.getTotalCartValue();
     };
     CartController.prototype.checkout = function () {
-        // this.cartService.checkout();
-        // this.getCartItems();
+        if (!this.isUserLoggedIn) {
+            this.$location.path("/login");
+            return;
+        }
+        else {
+            this.cartService.checkout();
+            this.getCartItems();
+        }
     };
-    CartController.$inject = ["CartService"];
+    CartController.$inject = ["CartService", "AuthService", "$location"];
     return CartController;
 }());
 

@@ -87,6 +87,11 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+          <ul class="nav navbar-nav">
+            <li><a class="text-decoration-none me-3" style="cursor: pointer;" ng-repeat="nav in mainCtrl.navItems" ng-click="mainCtrl.routeTo(nav)">{{ nav }}</a></li>
+          </ul>
+        </div>
         <div
           class="collapse navbar-collapse justify-content-end"
           id="navbarNav"

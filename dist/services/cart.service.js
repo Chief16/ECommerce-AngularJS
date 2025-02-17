@@ -38,6 +38,12 @@ var CartService = /** @class */ (function () {
         sessionStorage.setItem("catalogsInCart", JSON.parse(JSON.stringify(this.catalogsInCart)));
         this.alertService.showSuccess("Item removed from cart successfully!");
     };
+    CartService.prototype.checkout = function () {
+        sessionStorage.setItem("orders", JSON.stringify(this.catalogsInCart));
+        this.catalogsInCart = [];
+        sessionStorage.setItem("catalogsInCart", JSON.stringify(this.catalogsInCart));
+        this.alertService.showSuccess("Order placed successfully!");
+    };
     CartService.$inject = ["AlertService"];
     return CartService;
 }());
