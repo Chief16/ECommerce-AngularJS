@@ -1,6 +1,6 @@
 
 
-angular.module("eCommerce", ['ngRoute', "ui.bootstrap", "SharedModule", "AuthModule", "CatalogModule", "UserModule", "CartModule"])
+angular.module("eCommerce", ['ngRoute', "ui.bootstrap", "SharedModule", "AuthModule", "CatalogModule", "UserModule", "CartModule", "OrderModule"])
     .config(function ($routeProvider) {
     $routeProvider
         .when("/login", {
@@ -14,6 +14,10 @@ angular.module("eCommerce", ['ngRoute', "ui.bootstrap", "SharedModule", "AuthMod
         .when("/cart", {
         templateUrl: "src/views/cart.html",
         controller: "CartController"
+    })
+        .when("/orders", {
+        templateUrl: "src/views/orders.html",
+        controller: "OrderController"
     })
         .otherwise({
         redirectTo: "/catalog"

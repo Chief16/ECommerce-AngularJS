@@ -1,11 +1,11 @@
 import { AlertService } from "../shared/services/alert.service";
 
 export class CartService {
-  static $inject = ["AlertService"];
+  static $inject = ["AlertService", "$location"];
   catalogsInCart: ICatalogInCart[] = [];
 
-  constructor(private alertService: AlertService) {
-    this.catalogsInCart = JSON.parse(sessionStorage.getItem("catalogsInCart") as string)|| [];
+  constructor(private alertService: AlertService, private $location: ng.ILocationService) {
+    this.catalogsInCart = sessionStorage.getItem("catalogsInCart") != "" ? JSON.parse(sessionStorage.getItem("catalogsInCart") as string) : [];
   }
 
   addToCart(catalog: any) {
@@ -60,5 +60,6 @@ export class CartService {
     this.catalogsInCart = [];
     sessionStorage.setItem("catalogsInCart", JSON.stringify(this.catalogsInCart));
     this.alertService.showSuccess("Order placed successfully!");
+    this.$location.path("/orders");
   }
 }

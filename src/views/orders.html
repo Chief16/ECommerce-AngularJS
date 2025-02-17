@@ -1,0 +1,30 @@
+<div ng-controller="OrderController as ordCtrl" class="w-100">
+    <div class="d-flex justify-content-between align-items-center">
+      <h3 class="text-start">
+        Orders <small>( {{ ordCtrl.orders.length}} )</small>
+      </h3>
+    </div>
+    <div class="d-flex w-100">
+      <div
+        class="w-100 d-flex flex-column gap-3 justify-content-center align-items-center mt-4"
+      >
+        <p ng-if="cartCtrl.orders.length == 0 && !cartCtrl.isOrdersEmpty" class="mt-4">Loading ...</p>
+        <p ng-if="cartCtrl.isOrdersEmpty" class="mt-4">No orders found ! </p>
+        <div
+          ng-repeat="cart in cartCtrl.orders"
+          class="card mb-3 w-100 d-flex flex-row align-items-center p-3"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ cart.title }}</h5>
+            <p class="card-text">
+              <strong>Quantity:</strong> {{ cart.quantity }}
+            </p>
+            <p class="card-text">
+              <strong>Price:</strong> {{ cart.price | currency:'INR ' : 2 }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

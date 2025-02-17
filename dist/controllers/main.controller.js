@@ -3,7 +3,7 @@ var MainController = /** @class */ (function () {
         this.$location = $location;
         this.authService = authService;
         this.cartService = cartService;
-        this.navItems = ["Catalog", "Orders"];
+        this.navItems = ["Catalog"];
         if (this.authService.isUserLoggedIn()) {
             this.$location.path("/catalog");
         }
@@ -29,7 +29,7 @@ var MainController = /** @class */ (function () {
         this.$location.path("/cart");
     };
     MainController.prototype.routeTo = function (route) {
-        this.$location.path(route);
+        this.$location.path("/" + route.toLowerCase());
     };
     MainController.$inject = ["$location", "AuthService", "CartService"];
     return MainController;

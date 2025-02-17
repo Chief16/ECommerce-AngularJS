@@ -8,7 +8,8 @@
     <div
       class="w-75 d-flex flex-column gap-3 justify-content-center align-items-center mt-4"
     >
-      <p ng-if="cartCtrl.cartItems.length == 0" class="mt-4">Loading ...</p>
+      <p ng-if="cartCtrl.cartItems.length == 0 && !cartCtrl.isCartEmpty" class="mt-4">Loading ...</p>
+      <p ng-if="cartCtrl.isCartEmpty" class="mt-4">Cart is Empty! Go to <a ng-href="#!/catalog">Catalogs</a></p>
       <div
         ng-repeat="cart in cartCtrl.cartItems"
         class="card mb-3 w-100 d-flex flex-row align-items-center p-3"
@@ -20,7 +21,7 @@
           alt="Product Image"
         />
         <div class="card-body">
-          <h5 class="card-title">{{ cart.title }}</h5>
+          <h5 class="card-title mb-5">{{ cart.title }}</h5>
           <p class="card-text">
             <strong>Quantity:</strong> {{ cart.quantity }}
           </p>
@@ -31,7 +32,7 @@
             <button
               class="btn btn-primary"
               ng-if="cart.quantityAvl != 0"
-              ng-click="cartCtrl.addToCart(cart)"
+              ng-click="cartCtrl.removeFromCart(cart)"
             >
               Remove from Cart
             </button>
@@ -40,7 +41,8 @@
       </div>
     </div>
     <div
-      class="w-25 d-flex flex-column gap-3 justify-content-center mt-4 mx-2 px-4 card"
+      class="w-25 d-flex flex-column gap-3 mt-4 mx-2 px-4 card pt-4"
+      ng-if="cartCtrl.cartItems.length > 0"
     >
       <h4>Cart Summary</h4>
       <div class="d-flex justify-content-between align-items-center">

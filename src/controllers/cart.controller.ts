@@ -9,6 +9,7 @@ export class CartController {
   totalItems: number = 0;
   placeOrderMessage: string = "Place Order";
   isUserLoggedIn: boolean = true;
+  isCartEmpty: boolean = false;
 
   constructor(private cartService: CartService, private authService: AuthService, private $location: ng.ILocationService) {
     if(!this.authService.isUserLoggedIn()){
@@ -22,6 +23,9 @@ export class CartController {
     this.cartItems = this.cartService.getItemsFromCart();
     this.totalPrice = this.cartService.getTotalCartValue();
     this.totalItems = this.cartService.getItemsCountFromCart();
+    if(this.cartItems.length === 0){
+      this.isCartEmpty = true;
+    }
   }
 
   removeFromCart(item: any) {

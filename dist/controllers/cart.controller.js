@@ -8,6 +8,7 @@ var CartController = /** @class */ (function () {
         this.totalItems = 0;
         this.placeOrderMessage = "Place Order";
         this.isUserLoggedIn = true;
+        this.isCartEmpty = false;
         if (!this.authService.isUserLoggedIn()) {
             this.isUserLoggedIn = false;
             this.placeOrderMessage = "Login & Place Order";
@@ -18,6 +19,9 @@ var CartController = /** @class */ (function () {
         this.cartItems = this.cartService.getItemsFromCart();
         this.totalPrice = this.cartService.getTotalCartValue();
         this.totalItems = this.cartService.getItemsCountFromCart();
+        if (this.cartItems.length === 0) {
+            this.isCartEmpty = true;
+        }
     };
     CartController.prototype.removeFromCart = function (item) {
         this.cartService.removeFromCart(item);

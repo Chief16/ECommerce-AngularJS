@@ -4,7 +4,7 @@ import { CartService } from "../services/cart.service";
 
 export class MainController {
     static $inject = ["$location", "AuthService", "CartService"];
-    navItems: string[] = ["Catalog", "Orders"];
+    navItems: string[] = ["Catalog"];
 
     constructor(private $location: angular.ILocationService, private authService: AuthService, private cartService: CartService) {
         if(this.authService.isUserLoggedIn()) {
@@ -39,6 +39,6 @@ export class MainController {
     }
 
     routeTo(route: string) {
-        this.$location.path(route);
+        this.$location.path("/" + route.toLowerCase());
     }
 }

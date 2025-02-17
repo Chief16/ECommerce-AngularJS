@@ -1,8 +1,9 @@
 var CartService = /** @class */ (function () {
-    function CartService(alertService) {
+    function CartService(alertService, $location) {
         this.alertService = alertService;
+        this.$location = $location;
         this.catalogsInCart = [];
-        this.catalogsInCart = JSON.parse(sessionStorage.getItem("catalogsInCart")) || [];
+        this.catalogsInCart = sessionStorage.getItem("catalogsInCart") != "" ? JSON.parse(sessionStorage.getItem("catalogsInCart")) : [];
     }
     CartService.prototype.addToCart = function (catalog) {
         var cat = this.catalogsInCart.filter(function (c) { return c.title === catalog.title; })[0] ||
@@ -43,8 +44,9 @@ var CartService = /** @class */ (function () {
         this.catalogsInCart = [];
         sessionStorage.setItem("catalogsInCart", JSON.stringify(this.catalogsInCart));
         this.alertService.showSuccess("Order placed successfully!");
+        this.$location.path("/orders");
     };
-    CartService.$inject = ["AlertService"];
+    CartService.$inject = ["AlertService", "$location"];
     return CartService;
 }());
 
