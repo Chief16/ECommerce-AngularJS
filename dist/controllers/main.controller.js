@@ -13,6 +13,9 @@ var MainController = /** @class */ (function () {
     };
     MainController.prototype.showLoginBtn = function () {
         var userLoggedIn = this.isUserLoggedIn();
+        if (userLoggedIn && this.navItems.indexOf("Orders") === -1) {
+            this.navItems.push("Orders");
+        }
         return this.$location.path() !== "/login" && !userLoggedIn;
     };
     MainController.prototype.logout = function () {

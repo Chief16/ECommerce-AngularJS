@@ -1,12 +1,22 @@
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var CartService = /** @class */ (function () {
     function CartService(alertService, $location) {
         this.alertService = alertService;
         this.$location = $location;
         this.catalogsInCart = [];
-        this.catalogsInCart = sessionStorage.getItem("catalogsInCart") != "" ? JSON.parse(sessionStorage.getItem("catalogsInCart")) : [];
+        this.catalogsInCart = (sessionStorage.getItem("catalogsInCart") && sessionStorage.getItem("catalogsInCart") != "") ? JSON.parse(sessionStorage.getItem("catalogsInCart")) : [];
     }
     CartService.prototype.addToCart = function (catalog) {
-        var cat = this.catalogsInCart.filter(function (c) { return c.title === catalog.title; })[0] ||
+        var _a;
+        var cat = ((_a = this.catalogsInCart) === null || _a === void 0 ? void 0 : _a.filter(function (c) { return c.title === catalog.title; })[0]) ||
             null;
         if (cat) {
             cat.quantity++;
@@ -40,11 +50,18 @@ var CartService = /** @class */ (function () {
         this.alertService.showSuccess("Item removed from cart successfully!");
     };
     CartService.prototype.checkout = function () {
-        sessionStorage.setItem("orders", JSON.stringify(this.catalogsInCart));
+        var orderData = sessionStorage.getItem("orders") ? JSON.parse(sessionStorage.getItem("orders")) : [];
+        var newOrder = {
+            id: orderData.length + 1,
+            orderDate: new Date().toISOString(),
+            orderItems: this.catalogsInCart,
+            total: this.getTotalCartValue(),
+        };
+        sessionStorage.setItem("orders", JSON.stringify(__spreadArray(__spreadArray([], orderData, true), [newOrder], false)));
         this.catalogsInCart = [];
         sessionStorage.setItem("catalogsInCart", JSON.stringify(this.catalogsInCart));
         this.alertService.showSuccess("Order placed successfully! It will be delivered in 2-3 business days.", 5000);
-        this.$location.path("/catalog");
+        this.$location.path("/orders");
     };
     CartService.$inject = ["AlertService", "$location"];
     return CartService;

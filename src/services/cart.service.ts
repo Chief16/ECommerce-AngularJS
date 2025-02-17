@@ -1,3 +1,4 @@
+import { IOrder } from "../interfaces/order";
 import { AlertService } from "../shared/services/alert.service";
 
 export class CartService {
@@ -5,12 +6,12 @@ export class CartService {
   catalogsInCart: ICatalogInCart[] = [];
 
   constructor(private alertService: AlertService, private $location: ng.ILocationService) {
-    this.catalogsInCart = sessionStorage.getItem("catalogsInCart") != "" ? JSON.parse(sessionStorage.getItem("catalogsInCart") as string) : [];
+    this.catalogsInCart = (sessionStorage.getItem("catalogsInCart") && sessionStorage.getItem("catalogsInCart") != "") ? JSON.parse(sessionStorage.getItem("catalogsInCart") as string) : [];
   }
 
   addToCart(catalog: any) {
     let cat: any =
-      this.catalogsInCart.filter((c: any) => c.title === catalog.title)[0] ||
+      this.catalogsInCart?.filter((c: any) => c.title === catalog.title)[0] ||
       null;
     if (cat) {
       cat.quantity++;
@@ -56,10 +57,17 @@ export class CartService {
   }
 
   checkout() {
-    sessionStorage.setItem("orders", JSON.stringify(this.catalogsInCart));
+    const orderData: string[] = sessionStorage.getItem("orders") ? JSON.parse(sessionStorage.getItem("orders") as any) : [];
+    let newOrder: IOrder = {
+      id: orderData.length + 1,
+      orderDate: new Date().toISOString(),
+      orderItems: this.catalogsInCart,
+      total: this.getTotalCartValue(),
+    }
+    sessionStorage.setItem("orders", JSON.stringify([...orderData, newOrder]));
     this.catalogsInCart = [];
     sessionStorage.setItem("catalogsInCart", JSON.stringify(this.catalogsInCart));
     this.alertService.showSuccess("Order placed successfully! It will be delivered in 2-3 business days.", 5000);
-    this.$location.path("/catalog");
+    this.$location.path("/orders");
   }
 }

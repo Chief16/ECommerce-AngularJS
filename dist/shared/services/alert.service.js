@@ -5,6 +5,9 @@ var AlertService = /** @class */ (function () {
     AlertService.prototype.addAlert = function (alert, time) {
         var _this = this;
         if (time === void 0) { time = 3000; }
+        if (this.alerts.length == 3) {
+            this.alerts.pop();
+        }
         this.alerts.push(alert);
         setTimeout(function () {
             _this.removeAlert(alert);
@@ -23,11 +26,12 @@ var AlertService = /** @class */ (function () {
             message: message
         }, time);
     };
-    AlertService.prototype.showError = function (message) {
+    AlertService.prototype.showError = function (message, time) {
+        if (time === void 0) { time = 3000; }
         this.addAlert({
             type: "danger",
             message: message
-        });
+        }, time);
     };
     AlertService.prototype.removeAlert = function (alert) {
         var index = this.alerts.indexOf(alert);

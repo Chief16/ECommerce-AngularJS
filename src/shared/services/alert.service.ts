@@ -7,6 +7,9 @@ export class AlertService {
     }
 
     addAlert(alert: IAlert, time: number = 3000) {
+        if(this.alerts.length == 3) {
+            this.alerts.pop();
+        }
         this.alerts.push(alert);
         
         setTimeout(() => {
@@ -29,11 +32,11 @@ export class AlertService {
         }, time);
     }
 
-    showError(message: string) {
+    showError(message: string, time: number = 3000) {
         this.addAlert({
             type: "danger",
             message
-        });
+        }, time);
     }
 
     private removeAlert(alert: IAlert) {
